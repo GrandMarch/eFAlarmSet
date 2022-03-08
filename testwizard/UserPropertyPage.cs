@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
@@ -24,8 +25,6 @@ namespace eFAlarmSet
             dataGridView1.Columns["Name"].Width =100;
             //this.dataGridView1.CellClick +=DataGridView1_CellClick;
         }
-
-
         private void DataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             string tag=m_HMIInterface.VarSel(true, HMIInterface.CHMIInterface.DataType.dt_all, "");
@@ -46,30 +45,48 @@ namespace eFAlarmSet
             }
 
         }
-
         ~UserPropertyPage()
         {
         }
-
-        private void dateStart_ValueChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void dateEnd_ValueChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void button1_Click(object sender, EventArgs e)
         {
-            //TextTag.Text = m_HMIInterface.VarSel(true, HMIInterface.CHMIInterface.DataType.dt_int, TextTag.Text);
+            OpenFileDialog pOpenFileDialog = new OpenFileDialog();
+            pOpenFileDialog.Title = "打开txt文件";
+            pOpenFileDialog.Filter = "txt文件（*.txt）|*.txt";
+            pOpenFileDialog.CheckFileExists = true;
+            if (pOpenFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                values=new List<RowValue> { };
+                dataGridView1.Rows.Clear();
+                string path = System.IO.Path.GetFullPath(pOpenFileDialog.FileName);
+                using (FileStream fs = new FileStream(path, FileMode.Open))
+                {
+                    using (StreamReader sr = new StreamReader(fs))
+                    {
+                        string s = sr.ReadLine();
+                        while (!string.IsNullOrEmpty(s))
+                        {
+                            if (m_HMIInterface.IsValidVar(s))
+                            {
+                                var temp = new RowValue(s, m_HMIInterface);
+                                values.Add(temp);
+                                var index = dataGridView1.Rows.Add();
+                                dataGridView1.Rows[index].Cells[0].Value=temp.Name;
+                            }
+                            else
+                            {
+                                MessageBox.Show("点{0}不存在！", s);
+                            }
+                            s = sr.ReadLine();
+                        }
+                    }
+                }
+            }
         }
         public void SetHMI(HMIInterface.CHMIInterface hmi)
         {
             m_HMIInterface = hmi;
         }
-
         public void SetRows(List<RowValue> rows)
         {
             values=rows;
