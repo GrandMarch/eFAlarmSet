@@ -36,6 +36,7 @@ namespace eFAlarmSet
             keys[0] = dataTable.Columns["点名"];
             dataTable.PrimaryKey = keys;
             dataGridView1.DataSource = dataTable.DefaultView;
+            dataGridView1.ReadOnly = true;
         }
         public void UpdateView()
         {

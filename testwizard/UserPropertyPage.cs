@@ -23,6 +23,7 @@ namespace eFAlarmSet
             InitializeComponent();
             dataGridView1.Columns.Add("Name","Name");
             dataGridView1.Columns["Name"].Width =100;
+            dataGridView1.ReadOnly = true;
             //this.dataGridView1.CellClick +=DataGridView1_CellClick;
         }
         private void DataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
