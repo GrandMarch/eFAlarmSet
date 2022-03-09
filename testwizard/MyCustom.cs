@@ -114,6 +114,7 @@ namespace eFAlarmSet
             {
                 value.Regist();
             }
+            m_myForm.UpdateTableContent(m_Values);
         }
         public void PreDestory()
         {
@@ -193,7 +194,7 @@ namespace eFAlarmSet
                 //        m_myForm.AddPoint(dValue);
                 //    }
                 //}
-                m_myForm.UpdateTableContent();
+                m_myForm.UpdateView();
             }
         }
         public string OnWndMsg(int message, int wParam, int lParam)
