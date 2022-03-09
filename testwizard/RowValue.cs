@@ -43,6 +43,7 @@ namespace eFAlarmSet
 
         public void Regist()
         {
+            m_HMIInterface.VarRegister(tag_desc);
             m_HMIInterface.VarRegister(tag_pv);
             m_HMIInterface.VarRegister(tag_almenab);
             m_HMIInterface.VarRegister(tag_lo);
@@ -71,7 +72,7 @@ namespace eFAlarmSet
                     m_HMIInterface.VarDataGet(tag_hh, out var);
                     HH=var;
                     string svar = "";
-                    m_HMIInterface.VarDataGet(tag_hh, out svar);
+                    m_HMIInterface.VarDataGet(tag_desc, out svar);
                     Desc=svar;
                     return true;
                 }
