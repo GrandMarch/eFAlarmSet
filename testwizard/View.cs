@@ -88,5 +88,37 @@ namespace eFAlarmSet
                 dataTable.DefaultView.RowFilter = selectstr;
             }
         }
+        private void DataGridViewListCellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            if (m_HMIInterface.IsRunMode())
+            {
+                if (e.RowIndex >= 0)
+                {
+                    DataTable table = dataTable.DefaultView.ToTable();
+                    string id = table.Rows[e.RowIndex]["点名"].ToString();
+                    RowValue row = rowValues.Find(x => x.Name==id);
+                    if (row.Name==id)
+                    {
+                        SetPara pWin = new SetPara(row);
+                        m_HMIInterface.InitSheet();
+                        m_HMIInterface.AddPage((IntPtr)pWin.Handle);
+                        if (m_HMIInterface.DoModal() == 1)
+                        {
+                            if (double.TryParse(pWin.txtHH.Text, out double var1))
+                                row.HH=var1;
+                            if (double.TryParse(pWin.txtHI.Text, out double var2))
+                                row.HI=var2;
+                            if (double.TryParse(pWin.txtLL.Text, out double var3))
+                                row.LL=var3;
+                            if (double.TryParse(pWin.txtLO.Text, out double var4))
+                                row.LO=var4;
+                            row.ALMENAB=pWin.cbALMEN.Checked;                           
+                            bool b = row.Write();
+                        }
+                    }
+                }
+            }
+        }
+
     }
 }

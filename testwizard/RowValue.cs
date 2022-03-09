@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,11 +12,13 @@ namespace eFAlarmSet
         public string Name { get; set; }
         public string Desc { get; set; }
         public double PV { get; set; }
-        public double ALMENAB { get; set; }
+        public bool ALMENAB { get; set; }
         public double LO { get; set; }
         public double LL { get; set; }
         public double HI { get; set; }
         public double HH { get; set; }
+
+        private double dALMENAB { get; set; }
 
         private string tag_name;
         private string tag_desc;
@@ -63,7 +66,7 @@ namespace eFAlarmSet
                     m_HMIInterface.VarDataGet(tag_pv, out var);
                     PV=var;
                     m_HMIInterface.VarDataGet(tag_almenab, out var);
-                    ALMENAB=var;
+                    ALMENAB=var>0.0 ? true : false;
                     m_HMIInterface.VarDataGet(tag_lo, out var);
                     LO=var;
                     m_HMIInterface.VarDataGet(tag_ll, out var);
@@ -84,6 +87,27 @@ namespace eFAlarmSet
                 return false;
             }
             catch 
+            {
+                return false;
+            }
+        }
+
+        public bool Write()
+        {
+            try
+            {
+                if (m_HMIInterface!=null)
+                {    
+                    m_HMIInterface.VarDataSet(tag_almenab, ALMENAB?1.0:0.0);
+                    m_HMIInterface.VarDataSet(tag_lo, LO);
+                    m_HMIInterface.VarDataSet(tag_ll, LL);
+                    m_HMIInterface.VarDataSet(tag_hi, HI);
+                    m_HMIInterface.VarDataSet(tag_hh, HH);
+                    return true;
+                }
+                return false;
+            }
+            catch
             {
                 return false;
             }

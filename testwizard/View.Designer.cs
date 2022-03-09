@@ -103,6 +103,7 @@
             this.dataGridView1.RowTemplate.Height = 27;
             this.dataGridView1.Size = new System.Drawing.Size(960, 479);
             this.dataGridView1.TabIndex = 0;
+            this.dataGridView1.CellMouseDoubleClick+=new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DataGridViewListCellMouseDoubleClick);
             // 
             // View
             // 

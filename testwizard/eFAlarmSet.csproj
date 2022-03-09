@@ -55,6 +55,12 @@
       <DependentUpon>Resource.resx</DependentUpon>
     </Compile>
     <Compile Include="RowValue.cs" />
+    <Compile Include="SetPara.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SetPara.Designer.cs">
+      <DependentUpon>SetPara.cs</DependentUpon>
+    </Compile>
     <Compile Include="View.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -72,6 +78,9 @@
     <Compile Include="UserPropertyPage.designer.cs">
       <DependentUpon>UserPropertyPage.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="SetPara.resx">
+      <DependentUpon>SetPara.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UserPropertyPage.resx">
       <DependentUpon>UserPropertyPage.cs</DependentUpon>
     </EmbeddedResource>

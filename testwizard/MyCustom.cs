@@ -115,6 +115,7 @@ namespace eFAlarmSet
                 value.Regist();
             }
             m_myForm.UpdateTableContent(m_Values);
+            m_myForm.SetHmi(m_HMIInterface);
         }
         public void PreDestory()
         {
