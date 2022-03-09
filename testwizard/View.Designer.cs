@@ -35,7 +35,6 @@
             this.txtFilter = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.textBox1 = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -52,7 +51,6 @@
             // 
             // splitContainer1.Panel1
             // 
-            this.splitContainer1.Panel1.Controls.Add(this.textBox1);
             this.splitContainer1.Panel1.Controls.Add(this.button1);
             this.splitContainer1.Panel1.Controls.Add(this.txtFilter);
             this.splitContainer1.Panel1.Controls.Add(this.label1);
@@ -106,13 +104,6 @@
             this.dataGridView1.Size = new System.Drawing.Size(960, 479);
             this.dataGridView1.TabIndex = 0;
             // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(790, 14);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(148, 25);
-            this.textBox1.TabIndex = 3;
-            // 
             // View
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
@@ -138,6 +129,5 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox txtFilter;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.TextBox textBox1;
     }
 }
