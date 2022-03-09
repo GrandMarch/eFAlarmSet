@@ -25,6 +25,7 @@ namespace eFAlarmSet
         private string tag_ll;
         private string tag_hi;
         private string tag_hh;
+        private bool first_update = true;
         private HMIInterface.CHMIInterface m_HMIInterface;
 
         public RowValue(string tag, HMIInterface.CHMIInterface cHMIInterface)
@@ -71,9 +72,13 @@ namespace eFAlarmSet
                     HI=var;
                     m_HMIInterface.VarDataGet(tag_hh, out var);
                     HH=var;
-                    string svar = "";
-                    m_HMIInterface.VarDataGet(tag_desc, out svar);
-                    Desc=svar;
+                    if (!first_update)
+                    {
+                        string svar = "";
+                        m_HMIInterface.VarDataGet(tag_desc, out svar);
+                        Desc=svar;
+                    }
+                    first_update=false;
                     return true;
                 }
                 return false;
