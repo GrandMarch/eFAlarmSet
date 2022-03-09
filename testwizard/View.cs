@@ -14,8 +14,6 @@ namespace eFAlarmSet
     {
         HMIInterface.CHMIInterface m_HMIInterface;
         DataTable dataTable = new DataTable();
-        private bool Onfilter = false;
-        private string sFilter = "";
 
         List<RowValue> rowValues = new List<RowValue>();
         public View()
@@ -41,20 +39,17 @@ namespace eFAlarmSet
         }
         public void UpdateView()
         {
-            if (Onfilter==false)
+            foreach (RowValue r in rowValues)
             {
-                foreach (RowValue r in rowValues)
-                {
-                    r.Update();
-                    DataRow dataRow = dataTable.Rows.Find(r.Name);
-                    dataRow["描述"]=r.Desc;
-                    dataRow["当前值"]=r.PV;
-                    dataRow["使能报警"]=r.ALMENAB;
-                    dataRow["低限"]=r.LO;
-                    dataRow["低低限"]=r.LL;
-                    dataRow["高限"]=r.HI;
-                    dataRow["高高限"]=r.HH;
-                }
+                r.Update();
+                DataRow dataRow = dataTable.Rows.Find(r.Name);
+                dataRow["描述"]=r.Desc;
+                dataRow["当前值"]=r.PV;
+                dataRow["使能报警"]=r.ALMENAB;
+                dataRow["低限"]=r.LO;
+                dataRow["低低限"]=r.LL;
+                dataRow["高限"]=r.HI;
+                dataRow["高高限"]=r.HH;
             }
         }
         public void UpdateTableContent(List<RowValue > values)
@@ -84,7 +79,6 @@ namespace eFAlarmSet
         {
             if (txtFilter.Text==""||txtFilter.Text=="*")
             {
-                Onfilter=false;
                 dataTable.DefaultView.RowFilter = string.Empty;
             }
             else
